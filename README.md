@@ -208,7 +208,14 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Install Tailwind CSS:**
 
-    - Add Tailwind CSS via CDN in the `app/views/layouts/application.html.erb` file: [Tailwind CDN](href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css)
+    - Add Tailwind CSS via CDN in the file `app/views/layouts/application.html.erb`
+
+    ```html
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    ```
 
 2.  **Configure Tailwind in CSS:**
 

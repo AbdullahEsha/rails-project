@@ -26,25 +26,18 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Download Yarn and install it.
 
-4.  **Download and Install Rails Installer:**
-
-    - Go to the [Rails Installer v4.0.0 Alpha](https://github.com/railsinstaller/railsinstaller-windows/releases/tag/v4.0.0-alpha) page and download the `railsinstaller-4.0.0.exe` file.
-    - Run the installer to install Ruby, Rails, and all dependencies.
-
-5.  **Download and Install Ruby+Devkit:**
+4.  **Download and Install Ruby+Devkit:**
 
     - Download the latest version of Ruby+Devkit from [RubyInstaller](https://rubyinstaller.org/downloads/). For example, `Ruby+Devkit 3.3.5-1 (x64)`.
     - Install Ruby with Devkit support.
 
-6.  **Install Rails Globally:**
+5.  **Install Rails Globally:**
 
     - Open `cmd` and run the following command to install Rails globally:
 
-      bash
-
-      Copy code
-
-      `gem install rails`
+    ```bash
+      gem install rails
+    ```
 
 ---
 
@@ -54,31 +47,25 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Navigate to the desired directory using `cmd` and create a new Rails project with PostgreSQL as the database (without tests) by running:
 
-      bash
-
-      Copy code
-
-      `rails new your-project-name -T -d postgresql`
+    ```bash
+      rails new your-project-name -T -d postgresql
+    ```
 
 2.  **Install Missing Gems:**
 
     - If you encounter the error `"An error occurred while installing psych"`, resolve it by running:
 
-      bash
-
-      Copy code
-
-      `gem install psych bundle install --gemfile E:/rails-project/Gemfile`
+    ```bash
+      gem install psych bundle install --gemfile E:/rails-project/Gemfile
+    ```
 
 3.  **Start the Rails Server:**
 
     - To start the Rails server and see your project in action, run:
 
-      bash
-
-      Copy code
-
-      `rails s`
+    ```bash
+      rails s
+    ```
 
 4.  **Update Database Configuration:**
 
@@ -88,11 +75,9 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Run the following command to create the database:
 
-      bash
-
-      Copy code
-
-      `rails db:create --trace`
+    ```bash
+      rails db:create --trace
+    ```
 
 ---
 
@@ -104,11 +89,9 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - To integrate user authentication, run the following command to install the Devise gem:
 
-      bash
-
-      Copy code
-
-      `bundle add devise bundle install`
+    ```bash
+      bundle add devise bundle install
+    ```
 
 2.  **Configure Mailer for Devise:**
 
@@ -158,6 +141,7 @@ Before starting the project, ensure you have the following tools installed on yo
     ```bash
     rails db:migrate
     ```
+
 ---
 
 ## Admin Dashboard
@@ -168,11 +152,9 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Create a controller for the Admin dashboard to be accessible by authenticated users only:
 
-      bash
-
-      Copy code
-
-      `rails generate controller Admin::Dashboard index`
+    ```bash
+    rails generate controller Admin::Dashboard index
+    ```
 
 2.  **Restrict Access to Authenticated Users:**
 
@@ -190,21 +172,17 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Update the `config/routes.rb` file to set the root path to `home#index`:
 
-      ruby
-
-      Copy code
-
-      `Rails.application.routes.draw do   root "home#index"  # Sets the root path to home#index end`
+    ```ruby
+      Rails.application.routes.draw do   root "home#index"  # Sets the root path to home#index end`
+    ```
 
 3.  **Generate Home Controller:**
 
     - Generate a controller for the homepage:
 
-      bash
-
-      Copy code
-
-      `rails generate controller home index`
+    ```bash
+      rails generate controller home index
+    ```
 
 4.  **Update Global Layout:**
 
@@ -230,9 +208,8 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Install Tailwind CSS:**
 
-    - Add Tailwind CSS via CDN in the `app/views/layouts/application.html.erb` file:
-
-    [Tailwind CDN] (<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet"/>)
+    - Add Tailwind CSS via CDN in the `app/views/layouts/application.html.erb`
+      file: [Tailwind CDN](<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet"/>)
 
 2.  **Configure Tailwind in CSS:**
 

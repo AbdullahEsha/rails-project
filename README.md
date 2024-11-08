@@ -71,13 +71,36 @@ Before starting the project, ensure you have the following tools installed on yo
 
     - Modify the `config/database.yml` file to match your PostgreSQL configuration.
 
+```ruby
+   default: &default
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: your_username
+    password: your_password
+    host: localhost
+
+    development:
+    <<: *default
+    database: your_db_name
+
+    # Define other environments if needed, e.g., test or production
+    test:
+    <<: *default
+    database: <%= ENV["PG_DATABASE"] %>_test
+
+    production:
+    <<: *default
+    database: <%= ENV["PG_DATABASE"] %>_prod
+```
+
 5.  **Create the Database:**
 
-    - Run the following command to create the database:
+- Run the following command to create the database:
 
-    ```bash
-      rails db:create --trace
-    ```
+```bash
+  rails db:create --trace
+```
 
 ---
 
@@ -87,60 +110,60 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Add Devise for User Authentication:**
 
-    - To integrate user authentication, run the following command to install the Devise gem:
+- To integrate user authentication, run the following command to install the Devise gem:
 
-    ```bash
-      bundle add devise bundle install
-    ```
+```bash
+  bundle add devise bundle install
+```
 
 2.  **Configure Mailer for Devise:**
 
-    - Open `config/environments/development.rb` and add the following line for mailer configuration:
+- Open `config/environments/development.rb` and add the following line for mailer configuration:
 
-    ```ruby
-    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-    ```
+```ruby
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```
 
 3.  **Generate Devise Views:**
 
-    - To customize the Devise views (login, registration, etc.), run:
+- To customize the Devise views (login, registration, etc.), run:
 
-    ```bash
-    rails g devise:views
-    ```
+```bash
+rails g devise:views
+```
 
 4.  **Generate the User Model:**
 
-    - Create the `User` model with Devise by running:
+- Create the `User` model with Devise by running:
 
-    ```bash
-    rails generate devise User
-    ```
+```bash
+rails generate devise User
+```
 
 5.  **Add Additional Fields to User Model:**
 
-    - Update `app/controllers/application_controller.rb` to allow extra parameters (`name` and `role`) during sign-up and account updates:
+- Update `app/controllers/application_controller.rb` to allow extra parameters (`name` and `role`) during sign-up and account updates:
 
-    ```ruby
-    class ApplicationController < ActionController::Base
-        before_action :configure_permitted_parameters, if: :devise_controller?
+```ruby
+class ApplicationController < ActionController::Base
+    before_action :configure_permitted_parameters, if: :devise_controller?
 
-        protected
+    protected
 
-        def configure_permitted_parameters
-            devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role])
-            devise_parameter_sanitizer.permit(:account_update, keys: [:name, :role])
-        end
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:name, :role])
     end
-    ```
+end
+```
 
 6.  **Migrate the Database:**
 
-    - Run the following command to apply the database migrations:
+- Run the following command to apply the database migrations:
 
-    ```bash
-    rails db:migrate
-    ```
+```bash
+rails db:migrate
+```
 
 ---
 
@@ -150,15 +173,15 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Generate Admin Dashboard Controller:**
 
-    - Create a controller for the Admin dashboard to be accessible by authenticated users only:
+- Create a controller for the Admin dashboard to be accessible by authenticated users only:
 
-    ```bash
-    rails generate controller Admin::Dashboard index
-    ```
+```bash
+rails generate controller Admin::Dashboard index
+```
 
 2.  **Restrict Access to Authenticated Users:**
 
-    - You can restrict access to the `Admin::Dashboard` controller by using Devise's authentication method.
+- You can restrict access to the `Admin::Dashboard` controller by using Devise's authentication method.
 
 ---
 
@@ -166,41 +189,41 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Change Sign-in Page Design:**
 
-    - You can customize the design of the sign-in page by editing `app/views/devise/sessions/new.html.erb`.
+- You can customize the design of the sign-in page by editing `app/views/devise/sessions/new.html.erb`.
 
 2.  **Modify Routes:**
 
-    - Update the `config/routes.rb` file to set the root path to `home#index`:
+- Update the `config/routes.rb` file to set the root path to `home#index`:
 
-    ```ruby
-      Rails.application.routes.draw do   root "home#index"  # Sets the root path to home#index end`
-    ```
+```ruby
+  Rails.application.routes.draw do   root "home#index"  # Sets the root path to home#index end`
+```
 
 3.  **Generate Home Controller:**
 
-    - Generate a controller for the homepage:
+- Generate a controller for the homepage:
 
-    ```bash
-      rails generate controller home index
-    ```
+```bash
+  rails generate controller home index
+```
 
 4.  **Update Global Layout:**
 
-    - Update the layout in `app/views/layouts/application.html.erb` to include Tailwind CSS (via CDN) and display notices and alerts:
+- Update the layout in `app/views/layouts/application.html.erb` to include Tailwind CSS (via CDN) and display notices and alerts:
 
-    ```ruby
-     <head>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-     </head>
-     <body>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-     </body>
-    ```
+```ruby
+ <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+ </head>
+ <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+ </body>
+```
 
 5.  **Add Global CSS:**
 
-    - You can add your custom CSS in `app/assets/stylesheets/application.css`.
+- You can add your custom CSS in `app/assets/stylesheets/application.css`.
 
 ---
 
@@ -208,18 +231,18 @@ Before starting the project, ensure you have the following tools installed on yo
 
 1.  **Install Tailwind CSS:**
 
-    - Add Tailwind CSS via CDN in the file `app/views/layouts/application.html.erb`
+- Add Tailwind CSS via CDN in the file `app/views/layouts/application.html.erb`
 
-    ```html
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    ```
+```html
+<link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+```
 
 2.  **Configure Tailwind in CSS:**
 
-    - Tailwind classes can be used directly in your `.html.erb` files after including the CDN.
+- Tailwind classes can be used directly in your `.html.erb` files after including the CDN.
 
 ---
 
@@ -227,12 +250,16 @@ Before starting the project, ensure you have the following tools installed on yo
 
 - **Error Installing `psych`:**
 
-  - If you encounter an error when installing gems, run:
+- If you encounter an error when installing gems, run:
 
-    ```bash
-    gem install psych
-    ```
+  ```bash
+  gem install psych
+  ```
 
 - **Database Issues:**
 
-  - If you face issues while creating or migrating the database, ensure that your PostgreSQL is correctly configured and the database is running.
+- If you face issues while creating or migrating the database, ensure that your PostgreSQL is correctly configured and the database is running.
+
+```
+
+```
